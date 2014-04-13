@@ -28,8 +28,8 @@ if controller.sensors["me"].positive:
                 distance = (distance ** (0.5)) * strength
                 
                 for i in range(3):
-                    vector[i] += movement.force[i]
+                    vector[i] += movement.dLoc[i]
 
-                movement.force = vector
+                movement.dLoc = vector
                 controller.activate(movement)
                 print("done! distance: ", distance, " vector ", vector)
