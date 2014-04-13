@@ -11,9 +11,8 @@ if controller.sensors["me"].positive:
             if controller.sensors["stop"].positive:
                 print("[ACTION]: stopping motion betweeen", 
                       owner.name, "and", sensor.name)
+                controller.deactivate(movement)
                 movement.force = [0.0, 0.0, 0.0]
-                movement.dLoc = [0.0, 0.0, 0.0]
-                controller.activate(movement)
             else:
                 print("[ACTION]:  compressing", owner.name, "and", sensor.name)
                 brother = bpy.data.objects[sensor.name]
