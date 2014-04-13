@@ -1,3 +1,15 @@
+'''
+This module will move the "owner" node in the direction of one of the linked "brothers" it has.
+
+I'm not very familiar with this, so this code could be more pretty, but still, i get this approach can provide you a bit of customization.
+
+The owner has sensors, each sensor is named with the name of the node with whom the owner is linked. Also, the owner is linked to a "stop" sensor, and a "me" sensor, which reffers to activation of "owner".  When two sensors get positive, they approach (simulating wires compression). And all of this sensors are linked into a python controller, and this controller is linked to a motion action, which allows him to move.
+
+The right approach would be to have a "Node" class, but i don't know how to do this :(
+
+oh! the custom properties on each node indicates the force of compression of the wire. (each node has one of this custom properties for every node it is connected to). 
+'''
+
 import bpy
 import bge
 
@@ -20,7 +32,7 @@ if controller.sensors["me"].positive:
                 #computing wires motion simulation
                 #(this is the buggy stuff)
                 vector = [0.0, 0.0, 0.0] #the force that will be applied 
-                distance = 0 #the distance between 'this and 'brother'
+                distance = 0 #the distance between 'owner' and 'brother'
                 #not a big deal, i need this to compute the force applied to owner.
         
                 for i in range(3):
