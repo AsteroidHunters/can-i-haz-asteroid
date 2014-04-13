@@ -1,0 +1,4 @@
+import bge
+import bgy
+
+controller = bge.logic.getCurrentController()
