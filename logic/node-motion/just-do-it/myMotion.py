@@ -21,15 +21,15 @@ if controller.sensors["me"].positive:
                 distance = 0
         
                 for i in range(3):
-                    vector[i] += owner.localPosition[i] - brother.location[i]
+                    vector[i] += (owner.localPosition[i] - brother.location[i])*-1
                     distance += vector[i]**2
                 
                 strength = bpy.data.objects[owner.name][sensor.name]
                 distance = (distance ** (0.5)) * strength
                 
                 for i in range(3):
-                    vector[i] += movement.dLoc[i]
+                    vector[i] += movement.force[i]
 
-                movement.dLoc = vector
+                movement.force = vector
                 controller.activate(movement)
                 print("done! distance: ", distance, " vector ", vector)
