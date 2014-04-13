@@ -23,6 +23,7 @@ for sensor in controller.sensors:
         distance = distance ** (0.5)
         
         for i in range(3):
-            vector[i] = (vector[i]/distance) * 
+            vector[i] = (vector[i]/distance) * 1 #THIS SUCKS! 
+            #i need a global variable? i don't know what i need, i'm stuck again
         
         
