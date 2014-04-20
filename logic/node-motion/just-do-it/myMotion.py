@@ -35,6 +35,8 @@ controller = bge.logic.getCurrentController()
 owner = controller.owner
 movement = controller.actuators["motion"]
 
+#this code isnt complete. The constraints are missing, wires are infinitely wide.
+#wires doesnt stay compressed.
 
 if controller.sensors["me"].positive:
     for sensor in controller.sensors:
@@ -43,10 +45,8 @@ if controller.sensors["me"].positive:
             brother = bpy.data.objects[sensor.name]
             
             #computing wires motion simulation
-            #(this is the buggy stuff)
-            vector = [0.0, 0.0, 0.0] #the force that will be applied 
+            vector = [0.0, 0.0, 0.0] #the movement that will be applied 
             distance = 0 #the distance between 'owner' and 'brother'
-            #not a big deal, i need this to compute the force applied to owner.
             
             for i in range(3):
                 vector[i] += (owner.localPosition[i] - brother.location[i])*-1
@@ -57,15 +57,14 @@ if controller.sensors["me"].positive:
 
             for i in range(3):
                 vector[i] = (vector[i] * strength) / distance;
+            #vector is now pointing to brother, 
+            #and its dimension is defined by the strength
             
             for i in range(3):
                 vector[i] += movement.dLoc[i]
                 
             movement.dLoc = vector
-            #end of buggy part? someone have to rethink the equations
-            #i'm using coulomb's law to calculate the motion of the nodes
-            #but it doesnt seem to be enough to emulate wires :(
-            #here is the equation: 
+            #here is the equation used to make them closer: 
             #owner.force = (brother.position - owner.position)/distance
 
             controller.activate(movement)
